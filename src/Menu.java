@@ -11,17 +11,17 @@ public class Menu {
   }
 
   private void showMenu() {
-	  	System.out.println("----------------------------------------------------");
-		System.out.println("|                   --> MENU <--                   |");
-		System.out.println("|--------------------------------------------------|");
-	    System.out.println("| 1. Adicionar pessoa para atendimento normal      |");
-	    System.out.println("| 2. Adicionar pessoa para atendimento prioritario |");
-	    System.out.println("| 3. Atendimento de uma pessoa                     |");
-	    System.out.println("| 4. Listar pessoas na fila                        |");
-	    System.out.println("| 5. Gerar estatisticas                            |");
-	    System.out.println("| 5. Sair                                          |");
-	    System.out.println("----------------------------------------------------");
-	    System.out.print("\n-> ");
+    System.out.println("----------------------------------------------------");
+    System.out.println("|                   --> MENU <--                   |");
+    System.out.println("|--------------------------------------------------|");
+    System.out.println("| 1. Adicionar pessoa para atendimento normal      |");
+    System.out.println("| 2. Adicionar pessoa para atendimento prioritario |");
+    System.out.println("| 3. Atendimento de uma pessoa                     |");
+    System.out.println("| 4. Listar pessoas na fila                        |");
+    System.out.println("| 5. Gerar estatisticas                            |");
+    System.out.println("| 6. Sair                                          |");
+    System.out.println("----------------------------------------------------");
+    System.out.print("\n-> ");
   }
 
   private void waitForEnter() {
@@ -53,11 +53,12 @@ public class Menu {
   private void list() {
     int queuePosition = 0;
     for (Person person : queueRepository.findAll()) {
-    	queuePosition++;
-    	System.out.println((queuePosition) + ". " + person.getName() + " - " + (person.getHasPriority() ? "Prioritário" : "Normal"));
+      queuePosition++;
+      System.out.println(
+          (queuePosition) + ". " + person.getName() + " - " + (person.getHasPriority() ? "Prioritï¿½rio" : "Normal"));
     }
-    if(queuePosition==0) {
-    	System.out.println("A fila esta vazia!");  
+    if (queuePosition == 0) {
+      System.out.println("A fila esta vazia!");
     }
   }
 
@@ -69,8 +70,10 @@ public class Menu {
       System.out.println("Nenhuma pessoa atendida");
       return;
     }
-    System.out.println("Porcentagem de atendimentos prioritários: " + (queueRepository.getPriorityCounter() * 100 / total) + "%");
-    System.out.println("Porcentagem de atendimentos normais: " + (queueRepository.getNoPriorityCounter() * 100 / total) + "%");
+    System.out.println(
+        "Porcentagem de atendimentos prioritï¿½rios: " + (queueRepository.getPriorityCounter() * 100 / total) + "%");
+    System.out.println(
+        "Porcentagem de atendimentos normais: " + (queueRepository.getNoPriorityCounter() * 100 / total) + "%");
   }
 
   public void run() {
@@ -101,14 +104,16 @@ public class Menu {
           break;
         case 6:
           if (!queueRepository.isEmpty()) {
-            System.out.println("Fila não esta vazia, não foi possivel sair!");
+            System.out.println("Fila nï¿½o esta vazia, nï¿½o foi possivel sair!");
             waitForEnter();
           } else
-            System.exit(0);
+            System.out.println("Quantidade de pessoas atendidas: " + (queueRepository.getNoPriorityCounter()
+                + queueRepository.getPriorityCounter()));
+          System.exit(0);
 
           break;
         default:
-        	System.out.println("\nOpção inválida!\n");
+          System.out.println("\nOpï¿½ï¿½o invï¿½lida!\n");
           waitForEnter();
       }
     } while (true);
