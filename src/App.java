@@ -5,11 +5,6 @@ public class App {
         Scanner scanner = new Scanner(System.in);
         PersonPriorityQueueRepository repo = new PersonPriorityQueueRepository();
 
-        repo.add(new Person("P1", true));
-        repo.add(new Person("n1", false));
-        repo.add(new Person("p2", true));
-        repo.add(new Person("p3", true));
-
         Menu menu = new Menu(repo, scanner);
 
         menu.run();
