@@ -3,9 +3,9 @@ import java.util.Scanner;
 public class Menu {
 
   private Scanner scanner;
-  private PriorityQueueRepository<String> queueRepository;
+  private PersonPriorityQueueRepository queueRepository;
 
-  public Menu(PriorityQueueRepository<String> repo, Scanner s) {
+  public Menu(PersonPriorityQueueRepository repo, Scanner s) {
     this.queueRepository = repo;
     this.scanner = s;
   }
@@ -28,18 +28,19 @@ public class Menu {
   private void addNormalService() {
     System.out.print("Nome: ");
     String name = scanner.nextLine();
-    queueRepository.add(name, false);
+    queueRepository.add(new Person(name, false));
   }
 
   private void addPriorityService() {
     System.out.print("Nome: ");
     String name = scanner.nextLine();
-    queueRepository.add(name, true);
+    queueRepository.add(new Person(name, true));
   }
 
   private void attend() {
     if (!queueRepository.isEmpty()) {
-      System.out.println("Atendido: " + queueRepository.remove());
+      Person personAttended = queueRepository.remove();
+      System.out.println("Atendido: " + personAttended.getName());
       return;
     }
     System.out.println("Fila vazia!");
@@ -47,14 +48,20 @@ public class Menu {
 
   private void list() {
     int queuePosition = 1;
-    for (String name : queueRepository.findAll()) {
-      System.out.println((queuePosition++) + " - " + name);
+    for (Person person : queueRepository.findAll()) {
+      System.out.println(
+          (queuePosition++) + " - " + person.getName() + " - " + (person.getHasPriority() ? "Prioritário" : "Normal"));
     }
   }
 
   private void statistics() {
     final int total = queueRepository.getNoPriorityCounter() + queueRepository.getPriorityCounter();
-    System.out.println("Pessoas atendidas: " + total);
+    System.out.println("Tamanho da fila:" + queueRepository.size());
+
+    if (total == 0) {
+      System.out.println("Nenhuma pessoa atendida");
+      return;
+    }
     System.out
         .println(
             "Porcentagem de atendimentos prioritários: " + (queueRepository.getPriorityCounter() * 100 / total) + "%");
