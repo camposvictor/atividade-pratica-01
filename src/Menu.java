@@ -44,7 +44,8 @@ public class Menu {
   private void attend() {
     if (!queueRepository.isEmpty()) {
       Person personAttended = queueRepository.remove();
-      System.out.println("Atendido: " + personAttended.getName() + (personAttended.getHasPriority() ? " (Prioritário)" : " (Normal)"));
+      System.out.println("Atendido: " + personAttended.getName() + 
+    		  			(personAttended.getHasPriority() ? " (Prioritário)" : " (Normal)"));
       return;
     }
     System.out.println("Fila vazia!");
@@ -63,35 +64,38 @@ public class Menu {
   }
 
   private void statistics() {
-	    final int total = queueRepository.getNoPriorityCounter() + queueRepository.getPriorityCounter();
-	    final int totalInQueue = queueRepository.getPriorityCounterInQueue() + queueRepository.getNoPriorityCounterInQueue();
-	    //System.out.println("Pessoas na fila: " + queueRepository.size());
-
-	    if (totalInQueue == 0) {
-	    	System.out.println("Nenhuma pessoa na fila!");
-	    }
+	final int total = queueRepository.getNoPriorityCounter() + queueRepository.getPriorityCounter();
+	final int totalInQueue = queueRepository.getPriorityCounterInQueue() + queueRepository.getNoPriorityCounterInQueue();
+	System.out.println("--------------------------------------");
+	System.out.println("|                FILA                |");
+	System.out.println("--------------------------------------");
+	if (totalInQueue == 0) {
+		System.out.println("-> Nenhuma pessoa na fila!");
+	}
 	    
-	    else {
-	    	System.out.println("--------------------------------------");
-	    	System.out.println("|                FILA                |");
-	    	System.out.println("--------------------------------------");
-	    	System.out.println("-> Pessoas na fila: " +totalInQueue );
-	        System.out.println("-> Porcentagens: Prioritários ... " + (queueRepository.getPriorityCounterInQueue() * 100 / totalInQueue) + "%");
-	        System.out.println("                 Normais ........ " + (queueRepository.getNoPriorityCounterInQueue() * 100 / totalInQueue) + "%");
-	    }
-	    System.out.printf("\n");
-	    if (total == 0) {
-	        System.out.println("Nenhuma pessoa atendida!");
-	    }
+	else {
+		System.out.println("-> Pessoas na fila: " +totalInQueue );
+		System.out.println("-> Porcentagens: Prioritários ... " + 
+	        			  (queueRepository.getPriorityCounterInQueue() * 100 / totalInQueue) + "%");
+		System.out.println("                 Normais ........ " + 
+	        			  (queueRepository.getNoPriorityCounterInQueue() * 100 / totalInQueue) + "%");
+	}
+	System.out.printf("\n");
+	
+	System.out.println("--------------------------------------");
+	System.out.println("|             ATENDIMENTO            |");
+	System.out.println("--------------------------------------");
+	if (total == 0) {
+		System.out.println("-> Nenhuma pessoa atendida!");
+	}
 	    
-	    else {
-	    	System.out.println("--------------------------------------");
-	    	System.out.println("|             ATENDIMENTO            |");
-	    	System.out.println("--------------------------------------");
-	    	System.out.println(">> Pessoas atendidas: " + total);
-	        System.out.println(">> Porcentagens: Prioritários ... " + (queueRepository.getPriorityCounter() * 100 / total) + "%");
-	        System.out.println("                 Normais ........ " + (queueRepository.getNoPriorityCounter() * 100 / total) + "%");
-	    }
+	else {
+		System.out.println(">> Pessoas atendidas: " + total);
+		System.out.println(">> Porcentagens: Prioritários ... " + 
+	        			  (queueRepository.getPriorityCounter() * 100 / total) + "%");
+		System.out.println("                 Normais ........ " + 
+	        			  (queueRepository.getNoPriorityCounter() * 100 / total) + "%");
+	}
   }
 
   public void run() {
@@ -125,7 +129,8 @@ public class Menu {
             System.out.println("Fila não esta vazia, não foi possivel sair!");
             waitForEnter();
           } else {
-        	 System.out.println("Quantidade de pessoas atendidas: " + (queueRepository.getNoPriorityCounter() + queueRepository.getPriorityCounter()));
+        	 System.out.println("Quantidade de pessoas atendidas: " + 
+        			 		   (queueRepository.getNoPriorityCounter() + queueRepository.getPriorityCounter()));
              System.exit(0);
           }
           break;
