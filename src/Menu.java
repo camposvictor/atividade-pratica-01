@@ -63,17 +63,35 @@ public class Menu {
   }
 
   private void statistics() {
-    final int total = queueRepository.getNoPriorityCounter() + queueRepository.getPriorityCounter();
-    System.out.println("Pessoas na fila: " + queueRepository.size());
+	    final int total = queueRepository.getNoPriorityCounter() + queueRepository.getPriorityCounter();
+	    final int totalInQueue = queueRepository.getPriorityCounterInQueue() + queueRepository.getNoPriorityCounterInQueue();
+	    //System.out.println("Pessoas na fila: " + queueRepository.size());
 
-    if (total == 0) {
-      System.out.println("Nenhuma pessoa atendida");
-      return;
-    }
-    System.out.println(
-        "Porcentagem de atendimentos prioritï¿½rios: " + (queueRepository.getPriorityCounter() * 100 / total) + "%");
-    System.out.println(
-        "Porcentagem de atendimentos normais: " + (queueRepository.getNoPriorityCounter() * 100 / total) + "%");
+	    if (totalInQueue == 0) {
+	    	System.out.println("Nenhuma pessoa na fila!");
+	    }
+	    
+	    else {
+	    	System.out.println("--------------------------------------");
+	    	System.out.println("|                FILA                |");
+	    	System.out.println("--------------------------------------");
+	    	System.out.println("-> Pessoas na fila: " +totalInQueue );
+	        System.out.println("-> Porcentagens: Prioritários ... " + (queueRepository.getPriorityCounterInQueue() * 100 / totalInQueue) + "%");
+	        System.out.println("                 Normais ........ " + (queueRepository.getNoPriorityCounterInQueue() * 100 / totalInQueue) + "%");
+	    }
+	    System.out.printf("\n");
+	    if (total == 0) {
+	        System.out.println("Nenhuma pessoa atendida!");
+	    }
+	    
+	    else {
+	    	System.out.println("--------------------------------------");
+	    	System.out.println("|             ATENDIMENTO            |");
+	    	System.out.println("--------------------------------------");
+	    	System.out.println(">> Pessoas atendidas: " + total);
+	        System.out.println(">> Porcentagens: Prioritários ... " + (queueRepository.getPriorityCounter() * 100 / total) + "%");
+	        System.out.println("                 Normais ........ " + (queueRepository.getNoPriorityCounter() * 100 / total) + "%");
+	    }
   }
 
   public void run() {
